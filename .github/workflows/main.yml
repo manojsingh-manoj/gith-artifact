@@ -1,0 +1,25 @@
+name: Build and Upload Artifact
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up workspace
+        run: |
+          mkdir -p output
+          echo "This is a generated file" > output/hello.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-artifact
+          path: output/
